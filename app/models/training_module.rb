@@ -5,4 +5,5 @@ class TrainingModule < ApplicationRecord
 
   has_and_belongs_to_many :courses
   has_many :training_module_activities, dependent: :destroy
+  has_many :categories, through: :courses
 end

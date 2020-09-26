@@ -1,0 +1,23 @@
+class TopTrainingModulesQuery
+  def initialize(limit: 10)
+    @limit = limit
+  end
+
+  # SELECT training_modules.*, COUNT(training_module_activities.training_module_id) as count
+  # FROM "training_modules"
+  # INNER JOIN "training_module_activities"
+  #   ON "training_module_activities"."training_module_id" = "training_modules"."id"
+  # GROUP BY training_modules.id
+  # ORDER BY count DESC LIMIT 10
+  def call
+    TrainingModule.select('training_modules.*, COUNT(training_module_activities.training_module_id) as count')
+                  .joins(:training_module_activities)
+                  .group('training_modules.id')
+                  .order('count DESC')
+                  .limit(limit)
+  end
+
+  private
+
+  attr_reader :limit
+end

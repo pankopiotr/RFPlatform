@@ -6,4 +6,6 @@ class TrainingModule < ApplicationRecord
   has_and_belongs_to_many :courses
   has_many :training_module_activities, dependent: :destroy
   has_many :categories, through: :courses
+
+  scope :join_and_sort_by_category_name, -> { joins(:categories).order('categories.name ASC, training_modules.name') }
 end

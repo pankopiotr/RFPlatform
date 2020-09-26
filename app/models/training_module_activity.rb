@@ -1,0 +1,2 @@
+class TrainingModuleActivity < ApplicationRecord
+end

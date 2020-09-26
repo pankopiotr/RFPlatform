@@ -8,7 +8,10 @@ class TrainingModulesController < ApplicationController
   end
 
   def top10
-    training_modules = TopTrainingModulesQuery.new.call
+    # Or use page-level caching
+    training_modules = Rails.cache.fetch('training_modules/top10', expires_in: 1.hour) do
+      TopTrainingModulesQuery.new.call.to_a
+    end
 
     render json: training_modules
   end

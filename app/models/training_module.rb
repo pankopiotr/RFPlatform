@@ -4,4 +4,5 @@ class TrainingModule < ApplicationRecord
   enum kind: { hands_on: 1000, theory: 2000 }
 
   has_and_belongs_to_many :courses
+  has_many :training_module_activities, dependent: :destroy
 end

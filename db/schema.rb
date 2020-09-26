@@ -10,12 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_26_112822) do
+ActiveRecord::Schema.define(version: 2020_09_26_114906) do
 
   create_table "courses", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "courses_training_modules", id: false, force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.integer "training_module_id", null: false
+    t.index "\"courses\"", name: "index_courses_training_modules_on_courses"
+    t.index "\"training_modules\"", name: "index_courses_training_modules_on_training_modules"
+    t.index ["course_id", "training_module_id"], name: "courses_training_modules_composite", unique: true
   end
 
   create_table "training_modules", force: :cascade do |t|
